@@ -1,0 +1,88 @@
+<div class="page-container">
+  <div class="page-header">
+    <h1>{{ isEditMode ? 'Modifier un enseignant' : 'Ajouter un enseignant' }}</h1>
+  </div>
+
+  <mat-card>
+    <mat-card-content>
+      <div *ngIf="loading" class="loading-container">
+        <mat-spinner diameter="50"></mat-spinner>
+      </div>
+
+      <form [formGroup]="enseignantForm" (ngSubmit)="onSubmit()" *ngIf="!loading" class="form-container">
+        <div class="form-row">
+          <mat-form-field appearance="outline">
+            <mat-label>Nom</mat-label>
+            <input matInput formControlName="nom" placeholder="Nom de l'enseignant" required>
+            <mat-error *ngIf="enseignantForm.get('nom')?.hasError('required')">
+              Le nom est requis
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Prénom</mat-label>
+            <input matInput formControlName="prenom" placeholder="Prénom de l'enseignant" required>
+            <mat-error *ngIf="enseignantForm.get('prenom')?.hasError('required')">
+              Le prénom est requis
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" placeholder="Email de l'enseignant" required type="email">
+            <mat-error *ngIf="enseignantForm.get('email')?.hasError('required')">
+              L'email est requis
+            </mat-error>
+            <mat-error *ngIf="enseignantForm.get('email')?.hasError('email')">
+              Format d'email invalide
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline">
+            <mat-label>Matières enseignées</mat-label>
+            <mat-select formControlName="matiereIds" multiple required>
+              <mat-option *ngFor="let matiere of matieres" [value]="matiere.id">
+                {{ matiere.nom }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="enseignantForm.get('matiereIds')?.hasError('required')">
+              Au moins une matière est requise
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline">
+            <mat-label>Nom d'utilisateur</mat-label>
+            <input matInput formControlName="username" placeholder="Nom d'utilisateur" required>
+            <mat-error *ngIf="enseignantForm.get('username')?.hasError('required')">
+              Le nom d'utilisateur est requis
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" *ngIf="!isEditMode">
+            <mat-label>Mot de passe</mat-label>
+            <input matInput formControlName="password" type="password" placeholder="Mot de passe" required>
+            <mat-error *ngIf="enseignantForm.get('password')?.hasError('required')">
+              Le mot de passe est requis
+            </mat-error>
+            <mat-error *ngIf="enseignantForm.get('password')?.hasError('minlength')">
+              Le mot de passe doit contenir au moins 6 caractères
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-actions">
+          <button mat-button type="button" (click)="onCancel()">Annuler</button>
+          <button mat-raised-button color="primary" type="submit" [disabled]="enseignantForm.invalid || loading">
+            {{ isEditMode ? 'Mettre à jour' : 'Ajouter' }}
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

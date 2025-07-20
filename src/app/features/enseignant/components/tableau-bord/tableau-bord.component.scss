@@ -1,0 +1,96 @@
+.dashboard-container {
+  padding: 20px;
+  
+  .page-title {
+    margin-bottom: 24px;
+    color: #3f51b5;
+    font-weight: 500;
+  }
+  
+  .loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+  }
+  
+  .dashboard-content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  
+  .stats-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+    
+    .stats-card {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      
+      .stats-value {
+        font-size: 32px;
+        font-weight: 500;
+        color: #3f51b5;
+      }
+      
+      .stats-label {
+        font-size: 16px;
+        color: rgba(0, 0, 0, 0.6);
+        margin-top: 8px;
+      }
+      
+      mat-card-footer {
+        display: flex;
+        justify-content: flex-end;
+        padding: 8px;
+        
+        mat-icon {
+          color: rgba(0, 0, 0, 0.4);
+          font-size: 28px;
+          height: 28px;
+          width: 28px;
+        }
+      }
+    }
+  }
+  
+  .charts-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+    gap: 24px;
+    
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+    
+    .chart-card {
+      padding: 16px;
+      
+      mat-card-header {
+        margin-bottom: 16px;
+      }
+      
+      mat-card-content {
+        height: 300px;
+      }
+    }
+  }
+  
+  .quick-actions {
+    margin-top: 16px;
+    
+    h2 {
+      margin-bottom: 16px;
+      color: rgba(0, 0, 0, 0.7);
+    }
+    
+    .actions-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+  }
+}

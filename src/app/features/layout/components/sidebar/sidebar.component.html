@@ -1,0 +1,24 @@
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="logo">
+      <mat-icon>school</mat-icon>
+      <span>Portail Scolaire</span>
+    </div>
+  </div>
+  
+  <mat-divider></mat-divider>
+  
+  <div class="sidebar-content">
+    <mat-nav-list>
+      <a mat-list-item *ngFor="let item of menuItems" [routerLink]="item.route" routerLinkActive="active-link">
+        <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+        <span matListItemTitle>{{ item.label }}</span>
+      </a>
+    </mat-nav-list>
+  </div>
+  
+  <div class="sidebar-footer">
+    <mat-divider></mat-divider>
+    <div class="version">v1.0.0</div>
+  </div>
+</div>

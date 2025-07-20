@@ -1,1 +1,155 @@
 /* You can add global styles to this file, and also import other style files */
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+// Variables personnalisées pour le thème clair
+:root {
+  --background-color: #f5f5f5;
+  --text-color: rgba(0, 0, 0, 0.87);
+  --card-background: #ffffff;
+  --border-color: rgba(0, 0, 0, 0.12);
+}
+
+// Appliquer le thème sombre lorsque la classe .dark-theme est présente sur le body
+.dark-theme {
+  // Variables personnalisées pour le thème sombre
+  --background-color: #303030;
+  --text-color: #ffffff;
+  --card-background: #424242;
+  --border-color: rgba(255, 255, 255, 0.12);
+  
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+// Styles globaux
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+// Styles pour les snackbars
+.success-snackbar {
+  background-color: #4caf50;
+  color: white;
+}
+
+.error-snackbar {
+  background-color: #f44336;
+  color: white;
+}
+
+.info-snackbar {
+  background-color: #2196f3;
+  color: white;
+}
+
+.warning-snackbar {
+  background-color: #ff9800;
+  color: white;
+}
+
+// Styles utilitaires
+.full-width {
+  width: 100%;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mt-1 { margin-top: 8px; }
+.mt-2 { margin-top: 16px; }
+.mt-3 { margin-top: 24px; }
+.mt-4 { margin-top: 32px; }
+
+.mb-1 { margin-bottom: 8px; }
+.mb-2 { margin-bottom: 16px; }
+.mb-3 { margin-bottom: 24px; }
+.mb-4 { margin-bottom: 32px; }
+
+.ml-1 { margin-left: 8px; }
+.ml-2 { margin-left: 16px; }
+
+.mr-1 { margin-right: 8px; }
+.mr-2 { margin-right: 16px; }
+
+.p-1 { padding: 8px; }
+.p-2 { padding: 16px; }
+.p-3 { padding: 24px; }
+.p-4 { padding: 32px; }
+
+// Styles pour les cartes
+mat-card {
+  margin-bottom: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+// Styles pour les tableaux
+.mat-table-container {
+  overflow-x: auto;
+  margin-bottom: 16px;
+  
+  table {
+    width: 100%;
+  }
+}
+
+// Styles pour les formulaires
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  
+  .form-row {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    
+    > * {
+      flex: 1;
+      min-width: 200px;
+    }
+  }
+  
+  .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+    margin-top: 24px;
+  }
+}
+
+// Styles pour les boutons d'action dans les tableaux
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+// Styles pour les pages
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  
+  h1 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 500;
+  }
+}
+
+// Styles pour les filtres
+.filters-container {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  
+  > * {
+    min-width: 200px;
+  }
+}

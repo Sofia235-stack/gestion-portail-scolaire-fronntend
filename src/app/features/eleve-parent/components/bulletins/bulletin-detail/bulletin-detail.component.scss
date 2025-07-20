@@ -1,0 +1,97 @@
+.bulletin-container {
+  padding: 20px;
+  
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    
+    .page-title {
+      color: #3f51b5;
+      font-weight: 500;
+      margin: 0;
+    }
+  }
+  
+  .loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+  }
+  
+  .bulletin-content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    
+    .bulletin-header {
+      display: flex;
+      justify-content: space-between;
+      
+      @media (max-width: 768px) {
+        flex-direction: column;
+        gap: 16px;
+      }
+      
+      .school-info {
+        h2 {
+          margin-top: 0;
+          color: #3f51b5;
+        }
+        
+        p {
+          margin: 4px 0;
+          color: rgba(0, 0, 0, 0.6);
+        }
+      }
+      
+      .student-info {
+        h3 {
+          margin-top: 0;
+          color: #3f51b5;
+        }
+        
+        p {
+          margin: 4px 0;
+          color: rgba(0, 0, 0, 0.6);
+        }
+      }
+    }
+    
+    table {
+      width: 100%;
+    }
+    
+    .general-results {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      
+      .result-item {
+        .result-label {
+          font-size: 14px;
+          color: rgba(0, 0, 0, 0.6);
+          margin-bottom: 4px;
+        }
+        
+        .result-value {
+          font-size: 16px;
+          font-weight: 500;
+          
+          &.appreciation {
+            font-weight: normal;
+            white-space: pre-line;
+          }
+        }
+      }
+    }
+    
+    .bulletin-actions {
+      display: flex;
+      justify-content: flex-start;
+      margin-top: 16px;
+    }
+  }
+}

@@ -1,0 +1,59 @@
+<div class="classes-container">
+  <h1 class="page-title">Mes classes</h1>
+
+  <div *ngIf="loading" class="loading-container">
+    <mat-spinner diameter="50"></mat-spinner>
+  </div>
+
+  <div *ngIf="!loading && classes.length === 0" class="empty-state">
+    <mat-icon>school</mat-icon>
+    <p>Vous n'avez pas encore de classes assignées.</p>
+  </div>
+
+  <div *ngIf="!loading && classes.length > 0" class="classes-content">
+    <div class="classes-list">
+      <mat-card>
+        <mat-card-content>
+          <mat-nav-list>
+            <a mat-list-item *ngFor="let classe of classes" 
+               (click)="selectClasse(classe)"
+               [class.active]="selectedClasse?.id === classe.id">
+              <mat-icon matListItemIcon>groups</mat-icon>
+              <span matListItemTitle>{{ classe.nom }}</span>
+              <span matListItemLine>{{ classe.niveau }} - {{ getEffectif(classe) }} élèves</span>
+            </a>
+          </mat-nav-list>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <div class="classe-details" *ngIf="selectedClasse">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>{{ selectedClasse.nom }}</mat-card-title>
+          <mat-card-subtitle>{{ selectedClasse.niveau }} - Année {{ selectedClasse.anneeScolaire }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <h3>Liste des élèves</h3>
+          
+          <mat-list>
+            <mat-list-item *ngFor="let eleve of selectedClasse.eleves">
+              <mat-icon matListItemIcon>person</mat-icon>
+              <span matListItemTitle>{{ eleve.nom }} {{ eleve.prenom }}</span>
+            </mat-list-item>
+          </mat-list>
+
+          <div *ngIf="!selectedClasse.eleves || selectedClasse.eleves.length === 0" class="empty-list">
+            <p>Aucun élève dans cette classe.</p>
+          </div>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button color="primary" [routerLink]="['/enseignant/notes']" [queryParams]="{classeId: selectedClasse.id}">
+            <mat-icon>edit</mat-icon>
+            Saisir des notes
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</div>
