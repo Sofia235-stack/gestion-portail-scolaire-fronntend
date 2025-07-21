@@ -8,19 +8,19 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { NgChartsModule } from 'ng2-charts';
+// import { NgChartsModule } from 'ng2-charts';
 
 @Component({
   selector: 'app-tableau-bord',
   templateUrl: './tableau-bord.component.html',
   styleUrls: ['./tableau-bord.component.scss'],
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatIconModule, MatProgressSpinnerModule, MatButtonModule, RouterLink, NgChartsModule]
+  imports: [CommonModule, MatCardModule, MatIconModule, MatProgressSpinnerModule, MatButtonModule, RouterLink]
 })
 export class TableauBordComponent implements OnInit {
   loading = true;
   stats: any = {};
-  
+
   // Configuration des graphiques
   public barChartOptions: ChartConfiguration['options'] = {
     responsive: true,
@@ -36,9 +36,9 @@ export class TableauBordComponent implements OnInit {
       }
     }
   };
-  
+
   public barChartType: ChartType = 'bar';
-  
+
   public barChartData: ChartData<'bar'> = {
     labels: [],
     datasets: []

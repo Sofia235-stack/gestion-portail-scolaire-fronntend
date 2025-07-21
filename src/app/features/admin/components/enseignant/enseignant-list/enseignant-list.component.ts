@@ -3,9 +3,9 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { Enseignant } from '../../../core/models';
-import { AdminService } from '../../../core/services/admin.service';
-import { NotificationService } from '../../../core/services/notification.service';
+import { Enseignant } from '../../../../../core/models';
+import { AdminService } from '../../../../../core/services/admin.service';
+import { NotificationService } from '../../../../../core/services/notification.service';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -18,6 +18,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterLink } from '@angular/router';
+import {ApiResponse} from '../../../../../core/models';
 
 @Component({
   selector: 'app-enseignant-list',
@@ -101,14 +102,14 @@ export class EnseignantListComponent implements OnInit {
   deleteEnseignant(id: number): void {
     if (confirm('Êtes-vous sûr de vouloir supprimer cet enseignant ?')) {
       this.adminService.deleteEnseignant(id).subscribe({
-        next: (response) => {
-          if (response.success) {
-            this.notificationService.success('Enseignant supprimé avec succès');
-            this.loadEnseignants(this.paginator.pageIndex, this.paginator.pageSize);
-          } else {
-            this.notificationService.error(response.message || 'Erreur lors de la suppression');
-          }
-        }
+        // next: (response: ApiResponse<Enseignant>) => {
+        //   if (response.success) {
+        //     this.notificationService.success('Enseignant supprimé avec succès');
+        //     this.loadEnseignants(this.paginator.pageIndex, this.paginator.pageSize);
+        //   } else {
+        //     this.notificationService.error(response.message || 'Erreur lors de la suppression');
+        //   }
+        // }
       });
     }
   }

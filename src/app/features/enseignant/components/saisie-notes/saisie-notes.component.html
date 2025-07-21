@@ -55,31 +55,31 @@
                   {{ eleve.nom }} {{ eleve.prenom }}
                 </mat-option>
               </mat-select>
-              <mat-error *ngIf="noteForm.get('eleveId')?.hasError('required')">
-                L'élève est requis
-              </mat-error>
+<!--              <mat-error *ngIf="noteForm.get('eleveId')?.hasError('required')">-->
+<!--                L'élève est requis-->
+<!--              </mat-error>-->
             </mat-form-field>
 
             <mat-form-field appearance="outline">
               <mat-label>Note</mat-label>
               <input matInput type="number" formControlName="valeur" min="0" max="20" step="0.5" required>
-              <mat-error *ngIf="noteForm.get('valeur')?.hasError('required')">
-                La note est requise
-              </mat-error>
-              <mat-error *ngIf="noteForm.get('valeur')?.hasError('min') || noteForm.get('valeur')?.hasError('max')">
-                La note doit être comprise entre 0 et 20
-              </mat-error>
+<!--              <mat-error *ngIf="noteForm.get('valeur')?.hasError('required')">-->
+<!--                La note est requise-->
+<!--              </mat-error>-->
+<!--              <mat-error *ngIf="noteForm.get('valeur')?.hasError('min') || noteForm.get('valeur')?.hasError('max')">-->
+<!--                La note doit être comprise entre 0 et 20-->
+<!--              </mat-error>-->
             </mat-form-field>
 
             <mat-form-field appearance="outline">
               <mat-label>Coefficient</mat-label>
               <input matInput type="number" formControlName="coefficient" min="1" max="10" required>
-              <mat-error *ngIf="noteForm.get('coefficient')?.hasError('required')">
-                Le coefficient est requis
-              </mat-error>
-              <mat-error *ngIf="noteForm.get('coefficient')?.hasError('min') || noteForm.get('coefficient')?.hasError('max')">
-                Le coefficient doit être compris entre 1 et 10
-              </mat-error>
+<!--              <mat-error *ngIf="noteForm.get('coefficient')?.hasError('required')">-->
+<!--                Le coefficient est requis-->
+<!--              </mat-error>-->
+<!--              <mat-error *ngIf="noteForm.get('coefficient')?.hasError('min') || noteForm.get('coefficient')?.hasError('max')">-->
+<!--                Le coefficient doit être compris entre 1 et 10-->
+<!--              </mat-error>-->
             </mat-form-field>
           </div>
 
@@ -89,9 +89,9 @@
               <input matInput [matDatepicker]="picker" formControlName="date" required>
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
-              <mat-error *ngIf="noteForm.get('date')?.hasError('required')">
-                La date est requise
-              </mat-error>
+<!--              <mat-error *ngIf="noteForm.get('date')?.hasError('required')">-->
+<!--                La date est requise-->
+<!--              </mat-error>-->
             </mat-form-field>
 
             <mat-form-field appearance="outline">

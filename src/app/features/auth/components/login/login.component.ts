@@ -3,10 +3,20 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../../../core/services/auth.service';
 import { NotificationService } from '../../../../core/services/notification.service';
+import {MatButton} from '@angular/material/button';
+import {NgIf} from '@angular/common';
+import {MatCard} from '@angular/material/card';
+import {SharedModule} from '../../../../shared/shared.module';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
+  imports: [
+    MatButton,
+    NgIf,
+    SharedModule,
+    MatCard
+  ],
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
@@ -25,10 +35,10 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
-    
+
     // Récupérer l'URL de retour des paramètres de requête ou utiliser la page d'accueil par défaut
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || this.getDefaultRoute();
-    
+
     // Rediriger si déjà connecté
     if (this.authService.isAuthenticated) {
       this.router.navigate([this.getDefaultRoute()]);
@@ -48,7 +58,7 @@ export class LoginComponent implements OnInit {
     }
 
     this.loading = true;
-    
+
     this.authService.login(this.loginForm.value).subscribe({
       next: (response) => {
         if (response.success) {

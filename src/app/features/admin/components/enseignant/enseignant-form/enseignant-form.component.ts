@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { Matiere, Enseignant } from '../../../core/models';
-import { AdminService } from '../../../core/services/admin.service';
-import { NotificationService } from '../../../core/services/notification.service';
+import { Matiere, Enseignant } from '../../../../../core/models';
+import { AdminService } from '../../../../../core/services/admin.service';
+import { NotificationService } from '../../../../../core/services/notification.service';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import {SharedModule} from '../../../../../shared/shared.module';
+import {ApiResponse} from '../../../../../core/models';
 
 @Component({
   selector: 'app-enseignant-form',
@@ -25,7 +27,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    RouterLink
+    SharedModule
   ]
 })
 export class EnseignantFormComponent implements OnInit {
@@ -46,7 +48,7 @@ export class EnseignantFormComponent implements OnInit {
   ngOnInit(): void {
     this.initForm();
     this.loadMatieres();
-    
+
     // Vérifier si on est en mode édition
     this.route.params.subscribe(params => {
       if (params['id'] && params['id'] !== 'nouveau') {
@@ -71,7 +73,7 @@ export class EnseignantFormComponent implements OnInit {
   loadEnseignant(id: number): void {
     this.loading = true;
     this.adminService.getEnseignant(id).subscribe({
-      next: (response) => {
+      next: (response: ApiResponse<Enseignant>) => {
         if (response.success && response.data) {
           const enseignant = response.data;
           this.enseignantForm.patchValue({
@@ -81,7 +83,7 @@ export class EnseignantFormComponent implements OnInit {
             matiereIds: enseignant.matieres?.map(m => m.id) || [],
             username: enseignant.username
           });
-          
+
           // Désactiver le champ username en mode édition
           this.enseignantForm.get('username')?.disable();
         } else {
@@ -99,11 +101,11 @@ export class EnseignantFormComponent implements OnInit {
 
   loadMatieres(): void {
     this.adminService.getMatieres(0, 100).subscribe({
-      next: (response) => {
-        if (response.success && response.data) {
-          this.matieres = response.data.content;
-        }
-      }
+      // next: (response: ApiResponse<Enseignant>) => {
+      //   if (response.success && response.data) {
+      //     this.matieres = response.data.content;
+      //   }
+      // }
     });
   }
 
@@ -114,11 +116,11 @@ export class EnseignantFormComponent implements OnInit {
 
     this.loading = true;
     const enseignantData = { ...this.enseignantForm.value };
-    
+
     if (this.isEditMode && this.enseignantId) {
       // Mode édition
       this.adminService.updateEnseignant(this.enseignantId, enseignantData).subscribe({
-        next: (response) => {
+        next: (response: ApiResponse<Enseignant>) => {
           if (response.success) {
             this.notificationService.success('Enseignant mis à jour avec succès');
             this.router.navigate(['/admin/enseignants']);
@@ -134,7 +136,7 @@ export class EnseignantFormComponent implements OnInit {
     } else {
       // Mode création
       this.adminService.createEnseignant(enseignantData).subscribe({
-        next: (response) => {
+        next: (response: ApiResponse<Enseignant>) => {
           if (response.success) {
             this.notificationService.success('Enseignant créé avec succès');
             this.router.navigate(['/admin/enseignants']);

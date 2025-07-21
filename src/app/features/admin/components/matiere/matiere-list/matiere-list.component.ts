@@ -3,9 +3,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Matiere } from '../../../core/models';
-import { AdminService } from '../../../core/services/admin.service';
-import { NotificationService } from '../../../core/services/notification.service';
+import { Matiere } from '../../../../../core/models';
+import { AdminService } from '../../../../../core/services/admin.service';
+import { NotificationService } from '../../../../../core/services/notification.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -42,7 +42,7 @@ export class MatiereListComponent implements OnInit {
   dataSource = new MatTableDataSource<Matiere>([]);
   loading = false;
   totalElements = 0;
-  
+
   // Pour le formulaire d'ajout/édition
   editMode = false;
   currentMatiere: Partial<Matiere> = {};
@@ -118,7 +118,7 @@ export class MatiereListComponent implements OnInit {
     }
 
     this.loading = true;
-    
+
     if (this.editMode && matiere.id) {
       // Mode édition
       this.adminService.updateMatiere(matiere.id, matiere).subscribe({

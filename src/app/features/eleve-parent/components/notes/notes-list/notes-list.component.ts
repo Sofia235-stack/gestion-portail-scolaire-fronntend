@@ -1,12 +1,37 @@
 import { Component, OnInit } from '@angular/core';
-import { Note } from '../../../../../core/models';
+import { ApiResponse, Note } from '../../../../../core/models';
 import { EleveService } from '../../../../../core/services/eleve.service';
 import { NotificationService } from '../../../../../core/services/notification.service';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTableModule } from '@angular/material/table';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-notes-list',
   templateUrl: './notes-list.component.html',
-  styleUrls: ['./notes-list.component.scss']
+  styleUrls: ['./notes-list.component.scss'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    MatButtonModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatProgressSpinnerModule,
+    MatSelectModule,
+    MatTableModule,
+    DatePipe
+  ]
 })
 export class NotesListComponent implements OnInit {
   notes: Note[] = [];
@@ -33,7 +58,7 @@ export class NotesListComponent implements OnInit {
   loadNotes(): void {
     this.loading = true;
     this.eleveService.getMesNotes().subscribe({
-      next: (response) => {
+      next: (response: ApiResponse<Note[]>) => {
         if (response.success && response.data) {
           this.notes = response.data;
           this.extractMatieres();

@@ -1,13 +1,29 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Bulletin, Note } from '../../../../../core/models';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ApiResponse, Bulletin, Note } from '../../../../../core/models';
 import { EleveService } from '../../../../../core/services/eleve.service';
 import { NotificationService } from '../../../../../core/services/notification.service';
+import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTableModule } from '@angular/material/table';
 
 @Component({
   selector: 'app-bulletin-detail',
   templateUrl: './bulletin-detail.component.html',
-  styleUrls: ['./bulletin-detail.component.scss']
+  styleUrls: ['./bulletin-detail.component.scss'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    RouterLink,
+    MatButtonModule,
+    MatCardModule,
+    MatIconModule,
+    MatProgressSpinnerModule,
+    MatTableModule
+  ]
 })
 export class BulletinDetailComponent implements OnInit {
   bulletin: Bulletin | null = null;
@@ -35,7 +51,7 @@ export class BulletinDetailComponent implements OnInit {
   loadBulletin(id: number): void {
     this.loading = true;
     this.eleveService.getBulletin(id).subscribe({
-      next: (response) => {
+      next: (response: ApiResponse<Bulletin>) => {
         if (response.success && response.data) {
           this.bulletin = response.data;
           this.processNotes();

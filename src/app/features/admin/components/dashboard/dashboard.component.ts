@@ -1,11 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { AdminService } from '../../../core/services/admin.service';
-import { NotificationService } from '../../../core/services/notification.service';
+import { AdminService } from '../../../../core/services/admin.service';
+import { NotificationService } from '../../../../core/services/notification.service';
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { NgChartsModule } from 'ng2-charts';
+import {MatIcon} from '@angular/material/icon';
+import {MatButton} from '@angular/material/button';
+import {RouterLink} from '@angular/router';
+import {SharedModule} from '../../../../shared/shared.module';
+// import { NgChartsModule } from 'ng2-charts';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,13 +20,17 @@ import { NgChartsModule } from 'ng2-charts';
     CommonModule,
     MatCardModule,
     MatProgressSpinnerModule,
-    NgChartsModule
+    MatIcon,
+    MatButton,
+    RouterLink,
+    SharedModule
+    // NgChartsModule
   ]
 })
 export class DashboardComponent implements OnInit {
   loading = true;
   stats: any = {};
-  
+
   // Configuration des graphiques
   public barChartOptions: ChartConfiguration['options'] = {
     responsive: true,
@@ -38,14 +46,14 @@ export class DashboardComponent implements OnInit {
       }
     }
   };
-  
+
   public barChartType: ChartType = 'bar';
-  
+
   public barChartData: ChartData<'bar'> = {
     labels: [],
     datasets: []
   };
-  
+
   public pieChartOptions: ChartConfiguration['options'] = {
     responsive: true,
     plugins: {
@@ -55,9 +63,9 @@ export class DashboardComponent implements OnInit {
       }
     }
   };
-  
+
   public pieChartType: ChartType = 'pie';
-  
+
   public pieChartData: ChartData<'pie'> = {
     labels: [],
     datasets: []
@@ -75,7 +83,7 @@ export class DashboardComponent implements OnInit {
   loadDashboardStats(): void {
     this.loading = true;
     this.adminService.getDashboardStats().subscribe({
-      next: (response) => {
+      next: (response: any) => {
         if (response.success && response.data) {
           this.stats = response.data;
           this.initCharts();
@@ -105,7 +113,7 @@ export class DashboardComponent implements OnInit {
         ]
       };
     }
-    
+
     // Initialisation du graphique circulaire pour la répartition des rôles
     if (this.stats.roleStats) {
       this.pieChartData = {

@@ -3,9 +3,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Classe } from '../../../core/models';
-import { AdminService } from '../../../core/services/admin.service';
-import { NotificationService } from '../../../core/services/notification.service';
+import { ApiResponse, Classe } from '../../../../../core/models';
+import { AdminService } from '../../../../../core/services/admin.service';
+import { NotificationService } from '../../../../../core/services/notification.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -18,6 +18,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
+import {MatTooltip} from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-classe-list',
@@ -36,7 +37,8 @@ import { MatTableModule } from '@angular/material/table';
     MatProgressSpinnerModule,
     MatSelectModule,
     MatSortModule,
-    MatTableModule
+    MatTableModule,
+    MatTooltip
   ]
 })
 export class ClasseListComponent implements OnInit {
@@ -44,7 +46,7 @@ export class ClasseListComponent implements OnInit {
   dataSource = new MatTableDataSource<Classe>([]);
   loading = false;
   totalElements = 0;
-  
+
   // Pour le formulaire d'ajout/édition
   editMode = false;
   currentClasse: Partial<Classe> = {};
@@ -70,7 +72,7 @@ export class ClasseListComponent implements OnInit {
   loadClasses(page: number = 0, size: number = 10): void {
     this.loading = true;
     this.adminService.getClasses(page, size).subscribe({
-      next: (response) => {
+      next: (response: ApiResponse<{ content: Classe[], totalElements: number }>) => {
         if (response.success && response.data) {
           this.dataSource.data = response.data.content;
           this.totalElements = response.data.totalElements;
@@ -120,11 +122,11 @@ export class ClasseListComponent implements OnInit {
     }
 
     this.loading = true;
-    
+
     if (this.editMode && classe.id) {
       // Mode édition
       this.adminService.updateClasse(classe.id, classe).subscribe({
-        next: (response) => {
+        next: (response: ApiResponse<Classe>) => {
           if (response.success) {
             this.notificationService.success('Classe mise à jour avec succès');
             this.loadClasses(this.paginator.pageIndex, this.paginator.pageSize);
@@ -141,7 +143,7 @@ export class ClasseListComponent implements OnInit {
     } else {
       // Mode création
       this.adminService.createClasse(classe).subscribe({
-        next: (response) => {
+        next: (response: ApiResponse<Classe>) => {
           if (response.success) {
             this.notificationService.success('Classe créée avec succès');
             this.loadClasses(this.paginator.pageIndex, this.paginator.pageSize);
@@ -161,7 +163,7 @@ export class ClasseListComponent implements OnInit {
   deleteClasse(id: number): void {
     if (confirm('Êtes-vous sûr de vouloir supprimer cette classe ?')) {
       this.adminService.deleteClasse(id).subscribe({
-        next: (response) => {
+        next: (response: ApiResponse<void>) => {
           if (response.success) {
             this.notificationService.success('Classe supprimée avec succès');
             this.loadClasses(this.paginator.pageIndex, this.paginator.pageSize);

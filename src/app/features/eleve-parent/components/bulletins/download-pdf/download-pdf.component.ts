@@ -2,11 +2,24 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BulletinService } from '../../../../../core/services/bulletin.service';
 import { NotificationService } from '../../../../../core/services/notification.service';
+import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-download-pdf',
   templateUrl: './download-pdf.component.html',
-  styleUrls: ['./download-pdf.component.scss']
+  styleUrls: ['./download-pdf.component.scss'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatCardModule,
+    MatIconModule,
+    MatProgressSpinnerModule
+  ]
 })
 export class DownloadPdfComponent implements OnInit {
   bulletinId: number | null = null;

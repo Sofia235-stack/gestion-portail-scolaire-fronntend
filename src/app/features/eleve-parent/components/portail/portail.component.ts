@@ -3,10 +3,12 @@ import { EleveService } from '../../../../core/services/eleve.service';
 import { NotificationService } from '../../../../core/services/notification.service';
 import { AuthService } from '../../../../core/services/auth.service';
 import { User } from '../../../../core/models';
+import {SharedModule} from '../../../../shared/shared.module';
 
 @Component({
   selector: 'app-portail',
   templateUrl: './portail.component.html',
+  imports: [SharedModule],
   styleUrls: ['./portail.component.scss']
 })
 export class PortailComponent implements OnInit {
@@ -24,7 +26,7 @@ export class PortailComponent implements OnInit {
     this.authService.currentUser$.subscribe(user => {
       this.currentUser = user;
     });
-    
+
     this.loadStatistiques();
   }
 

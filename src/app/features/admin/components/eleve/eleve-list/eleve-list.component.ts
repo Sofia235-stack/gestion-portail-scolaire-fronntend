@@ -3,9 +3,9 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { Eleve } from '../../../core/models';
-import { AdminService } from '../../../core/services/admin.service';
-import { NotificationService } from '../../../core/services/notification.service';
+import { ApiResponse, Eleve } from '../../../../../core/models';
+import { AdminService } from '../../../../../core/services/admin.service';
+import { NotificationService } from '../../../../../core/services/notification.service';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -66,7 +66,7 @@ export class EleveListComponent implements OnInit {
   loadEleves(page: number = 0, size: number = 10): void {
     this.loading = true;
     this.adminService.getEleves(page, size).subscribe({
-      next: (response) => {
+      next: (response: ApiResponse<{ content: Eleve[], totalElements: number }>) => {
         if (response.success && response.data) {
           this.dataSource.data = response.data.content;
           this.totalElements = response.data.totalElements;
@@ -101,7 +101,7 @@ export class EleveListComponent implements OnInit {
   deleteEleve(id: number): void {
     if (confirm('Êtes-vous sûr de vouloir supprimer cet élève ?')) {
       this.adminService.deleteEleve(id).subscribe({
-        next: (response) => {
+        next: (response: ApiResponse<void>) => {
           if (response.success) {
             this.notificationService.success('Élève supprimé avec succès');
             this.loadEleves(this.paginator.pageIndex, this.paginator.pageSize);
